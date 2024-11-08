@@ -1,0 +1,331 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Streaming Platform";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Streaming Platform Database</h1>
+    <form method="post">
+    <div class="form-group">
+        <label for="region">Select Region</label>
+        <select id="region" name="SelectedRegion" class="form-control">
+                <option value="Asia">
+                Asia
+            </option>
+                <option value="Europe">
+                Europe
+            </option>
+                <option value="United States">
+                United States
+            </option>
+        </select>
+        <label for="region">Select data</label>
+        <select id="dataEntity" name="SelectedData" class="form-control">
+            <option value="International series">
+                International series
+            </option>
+            <option value="Movies">
+                Movies
+            </option>
+            <option value="Genres">
+                Genres
+            </option>
+            <option value="Local employment data">
+                Local employment data
+            </option>
+            <option value="Local series">
+                Local series
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+
+    @if (Model.SelectedRegion != null && Model.SelectedData != null)
+    {
+        <h2>Data for @Model.SelectedRegion</h2>
+        <div class="data-results mb-3 mt-3">
+            @switch (Model.SelectedData)
+            {
+                case "International series":
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Number of seasons</th>
+                                <th>Number of episodes</th>
+                                <th>Country</th>
+                                <th>Language</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.InternationalSeries)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.NumberOfSeasons</td>
+                                    <td>@item.NumberOfEpisodes</td>
+                                    <td>@item.Country</td>
+                                    <td>@item.Language</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    break;
+
+                case "Movies":
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Movies)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Genre.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    break;
+
+                case "Genres":
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Genres)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.IsActive</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    break;
+
+                case "Local employment data":
+                    if (Model.SelectedRegion == "Asia" && Model.AsianEmployees != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Currency</th>
+                                    <th>Salary</th>
+                                    <th>Employment policy</th>
+                                    <th>Contract type</th>
+                                    <th>Visa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.AsianEmployees)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Position</td>
+                                        <td>@item.SalaryCurrency</td>
+                                        <td>@item.Salary</td>
+                                        <td>@item.ASEmploymentPolicy</td>
+                                        <td>@item.ASEmploymentContractType</td>
+                                        <td>@item.VisaType</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else if (Model.SelectedRegion == "Europe" && Model.EuropeanEmployees != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Currency</th>
+                                    <th>Salary</th>
+                                    <th>Employment policy</th>
+                                    <th>Contract type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.EuropeanEmployees)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Position</td>
+                                        <td>@item.SalaryCurrency</td>
+                                        <td>@item.Salary</td>
+                                        <td>@item.EUEmploymentPolicy</td>
+                                        <td>@item.EUEmploymentContractType</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else if (Model.SelectedRegion == "United States" && Model.UnitedStatesEmployees != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Currency</th>
+                                    <th>Salary</th>
+                                    <th>Employment policy</th>
+                                    <th>Contract type</th>
+                                    <th>State</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.UnitedStatesEmployees)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Position</td>
+                                        <td>@item.SalaryCurrency</td>
+                                        <td>@item.Salary</td>
+                                        <td>@item.USEmploymentPolicy</td>
+                                        <td>@item.USEmploymentContractType</td>
+                                        <td>@item.State</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    break;
+
+                case "Local series":
+                    if(Model.SelectedRegion == "Asia" && Model.AsianSeries != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Number of seasons</th>
+                                    <th>Number of episodes</th>
+                                    <th>Country</th>
+                                    <th>Language</th>
+                                    <th>Visible in US</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.AsianSeries)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.NumberOfSeasons</td>
+                                        <td>@item.NumberOfEpisodes</td>
+                                        <td>@item.Country</td>
+                                        <td>@item.Language</td>
+                                        <td>@item.IsVisibleInAS</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else if (Model.SelectedRegion == "United States" && Model.UnitedStatesSeries != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Number of seasons</th>
+                                    <th>Number of episodes</th>
+                                    <th>Country</th>
+                                    <th>Language</th>
+                                    <th>Visible in AS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.UnitedStatesSeries)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.NumberOfSeasons</td>
+                                        <td>@item.NumberOfEpisodes</td>
+                                        <td>@item.Country</td>
+                                        <td>@item.Language</td>
+                                        <td>@item.IsVisibleInUS</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else if (Model.SelectedRegion == "Europe" && Model.EuropeanSeries != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Number of seasons</th>
+                                    <th>Number of episodes</th>
+                                    <th>Country</th>
+                                    <th>Language</th>
+                                    <th>Visible in EU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.EuropeanSeries)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.NumberOfSeasons</td>
+                                        <td>@item.NumberOfEpisodes</td>
+                                        <td>@item.Country</td>
+                                        <td>@item.Language</td>
+                                        <td>@item.IsVisibleInEU</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    break;
+                default:
+                    break;
+            }
+        </div>
+    }
+    else
+    {
+        <p>No data found for the selected region.</p>
+    }
+</div>
