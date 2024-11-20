@@ -1,0 +1,25 @@
+{
+  "name": "assignment_4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start_dev": "tsc-watch --onSuccess \"nodemon dist/app.js\"",
+    "start": "tsc && node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.2",
+    "morgan": "^1.10.0",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "nodemon": "^3.1.7",
+    "tsc-watch": "^6.2.1"
+  }
+}
