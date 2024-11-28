@@ -1,10 +1,10 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/postgreDB";
+import { sequelize } from "../../config/postgreDB";
 
 class Author extends Model {
     public id!: number;
     public name!: string;
-    public birth_year!: number;
+    public birthYear!: number;
     public nationality!: string;
 }
 
@@ -18,10 +18,14 @@ Author.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    birth_year: {
+    birthYear: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    nationality: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
-}, { sequelize, modelName: "Author", tableName: "authors" });
+}, { sequelize, tableName: "authors" });
 
-export default Author;
+export { Author };

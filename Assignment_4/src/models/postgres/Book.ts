@@ -1,10 +1,10 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/postgreDB";
-import Author from "./Author";
+import { sequelize } from "../../config/postgreDB";
+import { Author } from "./Author";
 
 class Book extends Model {
     public id!: number;
-    public author_id!: number;
+    public authorId!: number;
     public title!: string;
     public year!: number;
     public isbn!: string;
@@ -18,11 +18,11 @@ Book.init({
         autoIncrement: true,
         primaryKey: true
     },
-    author_id: {
+    authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Author,
+            model: "authors",
             key: "id"
         },
     },
@@ -46,6 +46,6 @@ Book.init({
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { sequelize, modelName: "Book", tableName: "books" });
+}, { sequelize, tableName: "books" });
 
-export default Book;
+export { Book };

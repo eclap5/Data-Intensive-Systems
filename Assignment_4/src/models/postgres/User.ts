@@ -1,11 +1,11 @@
+import { sequelize } from "../../config/postgreDB";
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/postgreDB";
 
 class User extends Model {
     public id!: number;
     public name!: string;
-    public birthDate!: number;
-    public phonenumber!: number;
+    public birthDate!: Date;
+    public phonenumber!: string;
     public email!: string;
     public address!: string;
 }
@@ -25,7 +25,7 @@ User.init({
         allowNull: false
     },
     phonenumber: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     email: {
@@ -36,6 +36,6 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { sequelize, modelName: "User", tableName: "users" });
+}, { sequelize, tableName: "users" });
 
-export default User;
+export { User };
