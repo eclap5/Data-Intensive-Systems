@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="./js/main.js"></script>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Library</title>
+</head>
+<body>
+    <div class="container">
+        <h4 class="center-align">Library management</h4>
+        <div class="row">
+            <div class="col s12">
+                <select id="database-select" class="browser-default">
+                    <option value="" disabled selected>Select a Database</option>
+                    <option value="postgres">PostgreSQL</option>
+                    <option value="mongodb">MongoDB</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+
+            <div class="col s12">
+                <select id="datatype-select" class="browser-default">
+                    <option value="" disabled selected>Select Data to Inspect</option>
+                    <option value="users">Users</option>
+                    <option value="books">Books</option>
+                    <option value="borrow-history">Borrow History</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row center-align">
+            <button id="submit-button" class="btn waves-effect waves-light">Inspect Data</button>
+        </div>
+
+        <h5 class="center-align">Results</h5>
+        <div id="results" class="row">
+            <div class="card">
+                <div class="card-content">
+                    <p id="results-content">Select a database and data type to view results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
