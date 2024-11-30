@@ -1,5 +1,5 @@
 import connectMongoDB from '../config/mongoDB';
-import { connectPostgreDB, sequelize } from '../config/postgreDB';
+import { connectPostgreDB } from '../config/postgreDB';
 
 // Import mongodb models
 import { Author as AuthorMongo } from '../models/mongodb/Author';
@@ -9,11 +9,11 @@ import { Review as ReviewMongo } from '../models/mongodb/Review';
 import { BorrowHistory as BorrowHistoryMongo } from '../models/mongodb/BorrowHistory';
 
 // Import postgres models
-import { Author as PostgresAuthor } from '../models/postgres/Author';
-import { Book as PostgresBook } from '../models/postgres/Book';
-import { User as PostgresUser } from '../models/postgres/User';
-import { Review as PostgresReview } from '../models/postgres/Review';
-import { BorrowHistory as PostgresBorrowHistory } from '../models/postgres/BorrowHistory';
+import { Author as PostgresAuthor } from '../models/postgres/associations';
+import { Book as PostgresBook } from '../models/postgres/associations';
+import { User as PostgresUser } from '../models/postgres/associations';
+import { Review as PostgresReview } from '../models/postgres/associations';
+import { BorrowHistory as PostgresBorrowHistory } from '../models/postgres/associations';
 
 const clearMongoDB = async () => {
     await connectMongoDB();
@@ -30,11 +30,11 @@ const clearMongoDB = async () => {
 const clearPostgreDB = async () => {
     await connectPostgreDB();
 
-    await PostgresUser.truncate();
-    await PostgresAuthor.truncate();
-    await PostgresBook.truncate();
-    await PostgresReview.truncate();
-    await PostgresBorrowHistory.truncate();
+    await PostgresUser.destroy({ where: {} });
+    await PostgresAuthor.destroy({ where: {} });
+    await PostgresBook.destroy({ where: {} });
+    await PostgresReview.destroy({ where: {} });
+    await PostgresBorrowHistory.destroy({ where: {} });
 
     console.log("PostgreSQL tables cleared");
 }
