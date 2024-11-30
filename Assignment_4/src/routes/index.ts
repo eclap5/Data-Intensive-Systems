@@ -1,8 +1,9 @@
 import { Request, Response, Router } from 'express';
 import { User as PostgreUser, Book as PostgreBook, BorrowHistory as PostgreBorrowHistory } from '../models/postgres/associations';
-import { IUser, User } from '../models/mongodb/User';
+import { User } from '../models/mongodb/User';
 import { Book } from '../models/mongodb/Book';
 import { BorrowHistory } from '../models/mongodb/BorrowHistory';
+import { IUserBase, IUserCreation } from '../models/interfaces/baseInterfaces';
 
 const router: Router = Router();
 
@@ -104,16 +105,36 @@ router.delete('/api/:db/borrow-history/:id', async (req: Request, res: Response)
 
 router.post('/api/:db/users', async (req: Request, res: Response) => {
     const database = req.params.db;
-    const { name, birthDate, email, phonenumber } = req.body;
+    const newUser: IUserBase = req.body;
+    console.log(newUser);
+    
     try {
         if (database === "postgres") {
-            const user = await PostgreUser.create({ name, email });
-            res.json({ user });
+            await PostgreUser.create(newUser as IUserCreation);
         } else if (database === "mongodb") {
-            const user = new User({ name, email });
-            await user.save();
-            res.json({ user });
+            await new User(newUser).save();
         }
+        res.json({ msg: `User created successfully to ${database}.` });
+
+    } catch (error: any) {
+        console.log(error)
+        res.status(500).json({ msg: 'Internal server error.' });
+    }
+});
+
+router.put('/api/:db/users/:id', async (req: Request, res: Response) => {
+    const database = req.params.db;
+    const id = req.params.id;
+    const updatedUser: IUserBase = req.body;
+    try {
+        if (database === "postgres") {
+            const user = await PostgreUser.findByPk(id);
+            await user?.update(updatedUser);
+        } else if (database === "mongodb") {
+            await User.findByIdAndUpdate(id, updatedUser);
+        }
+        res.json({ msg: `User updated successfully in ${database}.` });
+
     } catch (error: any) {
         console.log(error)
         res.status(500).json({ msg: 'Internal server error.' });

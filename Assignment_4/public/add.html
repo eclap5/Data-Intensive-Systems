@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add user</title>
+    <script defer src="./js/add.js"></script>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="col s12 m4">
+            <form id="add-user-form">
+                <div class="input-field col s12">
+                    <input name="name" id="name" type="text" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field col s12">
+                    <input name="birthdate" id="birthdate" type="date" required>
+                    <label for="birthdate" class="active">Birthdate</label>
+                </div>
+                <div class="input-field col s12">
+                    <input name="email" id="email" type="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12">
+                    <input name="phonenumber" id="phonenumber" type="text" required>
+                    <label for="phonenumber">Phone number</label>
+                </div>
+                <div class="input-field col s12">
+                    <input name="streetaddress" id="streetaddress" type="text" required>
+                    <label for="streetaddress">Street address</label>
+                </div>
+                <div class="col s12">
+                    <select name="database" id="database-select" class="browser-default">
+                        <option value="" disabled selected>Select a Database</option>
+                        <option value="postgres">PostgreSQL</option>
+                        <option value="mongodb">MongoDB</option>
+                    </select>
+                </div>
+                <div class="col s12 center-align">
+                    <button class="btn waves-effect waves-light" type="submit" id="submit-btn">
+                        Add User
+                    </button>
+                    <button class="btn waves-effect waves-light" id="redirect">
+                        Back
+                    </button>
+                </div>
+            </form>
+        </div>
+        <p id="result"></p>
+    </div>
+</body>
+</html>

@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataType = document.getElementById('datatype-select');
     const submit = document.getElementById('submit-button');
     const resultList = document.getElementById('results');
+    const redirect = document.getElementById('redirect');
+
+    redirect.addEventListener('click', () => {
+        window.location.href = '/add?edit=false';
+    });
 
     db.selectedIndex = 0;
     dataType.selectedIndex = 0;
@@ -78,16 +83,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const birthDate = document.createElement('li');
             const email = document.createElement('li');
             const phonenumber = document.createElement('li');
+            const streetAddress = document.createElement('li');
+            const editBtn = document.createElement('button');
             
             name.textContent = `Name: ${user.name}`;
-            birthDate.textContent = `Birth Date: ${user.birthDate}`;
+            birthDate.textContent = `Birth date: ${user.birthDate.split('T')[0]}`;
             email.textContent = `Email: ${user.email}`;
             phonenumber.textContent = `Phone number: ${user.phonenumber}`;
+            streetAddress.textContent = `Street address: ${user.address}`;
+            editBtn.textContent = 'Edit';
+            editBtn.classList.add('btn');
+
+            editBtn.addEventListener('click', () => {
+                localStorage.setItem('user', JSON.stringify(user));
+                const url = `/add?edit=true&db=${db.value}`;
+                window.location.href = url;
+            });
             
             cardContent.appendChild(name);
             cardContent.appendChild(birthDate);
             cardContent.appendChild(email);
             cardContent.appendChild(phonenumber);
+            cardContent.appendChild(streetAddress);
+            cardContent.appendChild(editBtn);
             card.appendChild(cardContent);
             resultList.appendChild(card);
         });
